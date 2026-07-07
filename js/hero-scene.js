@@ -1,6 +1,10 @@
 (() => {
   if (typeof THREE === "undefined") return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // Below this width the metrics card covers almost the entire globe anyway —
+  // skip the extra WebGL context and render loop rather than pay for a scene
+  // nobody can see.
+  if (window.innerWidth < 640) return;
 
   const container = document.querySelector(".hero-visual");
   if (!container) return;
@@ -13,7 +17,7 @@
   let dim = getDim();
 
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
   renderer.setSize(dim, dim);
 
   const scene = new THREE.Scene();

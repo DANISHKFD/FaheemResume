@@ -213,7 +213,8 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------------- Hero ---------------- */
 .hero {
-  padding: 92px 0 60px;
+  padding-top: 92px;
+  padding-bottom: 60px;
   position: relative;
 }
 .hero-grid {
@@ -406,7 +407,7 @@ img, svg { display: block; max-width: 100%; }
 }
 
 /* ---------------- Section shells ---------------- */
-section.page-section { padding: 60px 0; }
+section.page-section { padding-top: 60px; padding-bottom: 60px; }
 .section-head { margin-bottom: 36px; }
 .section-head .eyebrow { margin-bottom: 10px; }
 .section-head h2 {
@@ -742,7 +743,7 @@ body.page-ready main { animation: fadeIn 0.6s ease both; }
   }
   .nav-links.open { transform: translateY(0); }
   .nav-toggle { display: flex; }
-  .hero { padding: 70px 0 40px; }
+  .hero { padding-top: 70px; padding-bottom: 40px; }
   .hero-grid { gap: 18px; }
   .hero h1 { font-size: clamp(2.2rem, 8vw, 3rem); }
   .hero .role-line { font-size: 13px; }
@@ -756,7 +757,7 @@ body.page-ready main { animation: fadeIn 0.6s ease both; }
   .company-strip { gap: 10px; }
   .monogram { width: 48px; height: 48px; border-radius: 12px; }
   .monogram.small { width: 40px; height: 40px; border-radius: 10px; }
-  section.page-section { padding: 44px 0; }
+  section.page-section { padding-top: 44px; padding-bottom: 44px; }
   .timeline::before { left: 16px; }
   .timeline-item { padding-left: 46px; margin-bottom: 34px; }
   .timeline-item::before { left: 10px; }

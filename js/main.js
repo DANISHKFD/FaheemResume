@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("page-ready");
 
+  const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   // Mobile nav toggle
   const toggle = document.querySelector(".nav-toggle");
   const links = document.querySelector(".nav-links");
@@ -50,9 +53,11 @@ document.addEventListener("DOMContentLoaded", () => {
     revealEls.forEach((el) => el.classList.add("in-view"));
   }
 
-  // 3D hover motion for cards and logos
+  // 3D hover motion for cards and logos (fine-pointer desktops only — pointermove
+  // on touch devices fires during scroll and would cost jank for no visual payoff)
   document.querySelectorAll(".hero-visual-card, .monogram, .logo-item, .competency-card, .contact-card, .timeline-item, .stat-cell").forEach((card) => {
     card.classList.add("tilt-card");
+    if (!supportsHover || reduceMotion) return;
     card.addEventListener("pointermove", (event) => {
       const rect = card.getBoundingClientRect();
       const x = event.clientX - rect.left;
@@ -109,8 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Cursor spotlight + magnetic buttons (fine-pointer desktops only)
-  const supportsHover = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (supportsHover && !reduceMotion) {
     const spotlight = document.createElement("div");
     spotlight.className = "cursor-spotlight";

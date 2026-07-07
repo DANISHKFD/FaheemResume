@@ -1,20 +1,27 @@
 (() => {
   if (typeof THREE === "undefined") return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (navigator.connection && navigator.connection.saveData) return;
+
+  const isTiny = window.innerWidth < 480;
+  const isMobile = window.innerWidth < 760;
+
+  // Very small phones: skip the background entirely — screen is dominated by
+  // content anyway and it's not worth the battery cost.
+  if (isTiny) return;
 
   const canvas = document.createElement("canvas");
   canvas.className = "three-bg-canvas";
   document.body.prepend(canvas);
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: !isMobile });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 1.5));
   renderer.setSize(window.innerWidth, window.innerHeight);
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(55, window.innerWidth / window.innerHeight, 1, 2000);
   camera.position.z = 520;
 
-  const isMobile = window.innerWidth < 760;
   const COUNT = isMobile ? 42 : 88;
   const RANGE_X = 620;
   const RANGE_Y = 420;
@@ -116,7 +123,7 @@
     }
     geometry.attributes.position.needsUpdate = true;
 
-    if (frame % 4 === 0) updateLines();
+    if (frame % (isMobile ? 8 : 4) === 0) updateLines();
 
     points.rotation.y += 0.0006;
     lines.rotation.y = points.rotation.y;
